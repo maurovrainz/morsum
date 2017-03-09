@@ -2,7 +2,8 @@
 
 namespace Morsum\Routing;
 
-use Morsum\Routing\Exceptions\RouteNotFoundException;
+use Morsum\Routing\Exceptions\RouteNotFoundException,
+    Morsum\Routing\Exceptions\MissingArgumentException;
 
 /**
  * Router class
@@ -54,7 +55,7 @@ class Router
             return $route;
         }
         
-        throw new RouteNotFoundException(sprintf('There is not route to match the folloe path: %s', $path));
+        throw new RouteNotFoundException(sprintf('There is not route to match the follow path: %s', $path));
     }
     
     protected function createRoute($path, array $data = [], $name = '')
@@ -71,7 +72,8 @@ class Router
     protected function getRegex(array $route)
     {
         if (!preg_match_all(self::WILDCARD_REGEX, $route['path'], $matches)) {
-            return $route['path'];
+            $regex = preg_quote($route['path'], '/');
+            return '/' . $regex . '$/';
         }
 
         $tmp = uniqid('prefix_');
@@ -84,6 +86,61 @@ class Router
         $regex = str_replace($tmp, self::ARG_REGEX, $regex);
         
         return '/' . $regex . '$/';
+    }
+    
+    /**
+     * 
+     * @param string $routeName
+     * @param array $args
+     * @return string
+     * @throws RouteNotFoundException
+     */
+    public function generateUrl($routeName, array $args = [])
+    {
+        if (!array_key_exists($routeName, $this->routes)) {
+            throw new RouteNotFoundException(sprintf('There is not route named %s', $routeName));
+        }
+        
+        $route = $this->routes[$routeName];
+        
+        $url = $route['path'];
+        
+        $args = $this->prepareArgs($route, $args);
+        
+        foreach ($args['url'] as $key => $val) {
+            $url = str_replace($key, $val, $url);
+        }
+        $query = http_build_query($args['query']);
+        
+        $url .= !empty($query) ? '?' . $query : '';
+        
+        return $url;
+    }
+    
+    protected function prepareArgs(array $route, array $args = [])
+    {
+        if (!preg_match_all(self::WILDCARD_REGEX, $route['path'], $matches)) {
+            // arguments as get
+        }
+        
+        $prepared['url'] = [];
+        foreach ($matches[0] as $match) {
+            $key = str_replace('{', '', str_replace('}', '', $match));
+            if (empty($args[$key])) {
+                throw new MissingArgumentException(sprintf('Missing url argument %', $key));
+            }
+            
+            $prepared['url'][$match] = $args[$key]; 
+        }
+        
+        $prepared['query'] = [];
+        foreach ($args as $key => $arg) {
+            if (!array_key_exists('{' . $key . '}', $prepared['url'])) {
+                $prepared['query'][$key] = $arg;
+            }
+        }
+        
+        return $prepared;
     }
 
 }

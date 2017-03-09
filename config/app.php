@@ -4,10 +4,11 @@ use Morsum\Application;
 
 $loader = require __DIR__ . '/../vendor/autoload.php';
 
-$app = new Application();
-$app['config'] = require_once __DIR__ . '/config.php';
+$config = require_once __DIR__ . '/config.php';
+$app = new Application($config);
 
-$app->addRoute('GET', '/user/{id}/profile/{type}', 'App\\Controller\\UserController', 'getProfile');
-$app->addRoute('GET', '/user/{id}/billing/{type}', 'App\\Controller\\UserController', 'getBilling');
+// Default route
+$app->addRoute('GET', '/', 'App\\Controller\\DefaultController', 'defaultAction', 'home');
+$app->addRoute('GET', '/user/{id}/json', 'App\\Controller\\DefaultController', 'jsonProfile', 'ajax_profile');
 
 return $app;

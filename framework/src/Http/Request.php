@@ -85,4 +85,16 @@ class Request
     {
         return $this->routingInfo;
     }
+    
+    /**
+     * 
+     * @return boolean
+     */
+    public function isXmlHttpRequest()
+    {
+        return (
+            !empty($this->server['HTTP_X_REQUESTED_WITH']) 
+            && strtolower($this->server['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'
+        );
+    }
 }

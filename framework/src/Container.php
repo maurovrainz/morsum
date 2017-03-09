@@ -1,13 +1,14 @@
 <?php
 
-namespace Morsum\Traits;
+namespace Morsum;
 
 /**
- * ContainerTrait
+ * Container class
+ * Used to store values or classes instances, like services
  *
  * @author mauro
  */
-trait ContainerTrait
+class Container implements \ArrayAccess
 {
     /**
      *
@@ -30,7 +31,7 @@ trait ContainerTrait
     {
         if (is_callable($this->container[$offset])) {
             if (!array_key_exists($offset, $this->containerInstances)) {
-                $this->containerInstances[$offset] = $this->container[$offset];
+                $this->containerInstances[$offset] = call_user_func($this->container[$offset]);
             }
             
             return $this->containerInstances[$offset];

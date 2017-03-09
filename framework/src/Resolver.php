@@ -3,10 +3,11 @@
 namespace Morsum;
 
 use Morsum\Http\Request;
-use Morsum\Http\Response;
+use Morsum\Http\Response\Response;
 use Morsum\Application;
 use Morsum\Http\Controller;
 use Morsum\Exceptions\InvalidResponseException;
+use Morsum\Http\Exceptions\HttpException;
 
 /**
  * Resolver class
@@ -36,6 +37,8 @@ class Resolver
     {
         $route = $request->getRoutingInfo();
         
+        $this->validateRequest($request, $route);
+        
         $controller = new $route['data']['controller']($this->app);
         
         $response = $this->callController(
@@ -60,5 +63,15 @@ class Resolver
         }
         
         return $response;
+    }
+    
+    private function validateRequest(Request $request, array $route)
+    {
+        $requestMethod = $request->server['REQUEST_METHOD'];
+        $routeMethod = strtoupper($route['data']['method']);
+        
+        if ($requestMethod != $routeMethod) {
+            throw new HttpException(sprintf('Method not allowed: %s', $requestMethod));
+        }
     }
 }

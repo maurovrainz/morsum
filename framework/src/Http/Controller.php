@@ -3,6 +3,8 @@
 namespace Morsum\Http;
 
 use Morsum\Application;
+use Morsum\MySql\MySql;
+use Morsum\MySql\Model;
 
 /**
  * Base Controller
@@ -24,5 +26,24 @@ abstract class Controller
     public function __construct(Application $app)
     {
         $this->app = $app;
+    }
+    
+    /**
+     * 
+     * @return MySql
+     */
+    public function getMySql()
+    {
+        return $this->app['mysql'];
+    }
+    
+    /**
+     * 
+     * @param string $table
+     * @return Model
+     */
+    public function getModel($table)
+    {
+        return $this->app['mysql']->getModel($table);
     }
 }
