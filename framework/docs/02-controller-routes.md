@@ -1,6 +1,6 @@
-# Controller
+# Controller & Routes
 
-## Creates a controller with actions
+## Controller
 
 Your controller class must extends from Morsum\Http\Controller, and the action must return a Morsum\Http\Response\Response object.
 The action receives arguments passed by teh URL, and the Request instance.
@@ -42,7 +42,7 @@ class DefaultController extends Controller
 ```
 As we can see, the action also returns a rendered view, but that render method, returns a Response object containing the view data.
 
-## Defining routes
+## Routes
 
 ```php
 <?php
@@ -52,10 +52,12 @@ use Morsum\Application;
 $loader = require __DIR__ . '/../vendor/autoload.php';
 $config = require_once __DIR__ . '/config.php';
 $app = new Application($config);
-// Default route
+
+// Routes
 $app->addRoute('GET', '/', 'App\\Controller\\DefaultController', 'defaultAction', 'home');
 $app->addRoute('GET', '/user/{id}/json', 'App\\Controller\\DefaultController', 'jsonProfile', 'ajax_profile');
+
 return $app;
 ```
 
-As we can see, the Application has a method to add routes to the Router component, so we register the routes for the two controller actions, defining the arguments as placeholders in the path.
+As we can see, the Application has a method to add routes to the Router component, so we register the routes for the two controller actions, defining the arguments as placeholders in the path, the method type (GET, POST, PUT, DELETE) and the route name (used to create the URLs) 
