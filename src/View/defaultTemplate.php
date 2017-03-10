@@ -19,6 +19,10 @@
                     </li>
                 <?php endforeach; ?>
             </ul>
+            <hr>
+            
+            <h4>Last.fm top Artists</h4>
+            <a href="<?php echo $app['router']->generateUrl('music_lastfm'); ?>">Here</a>!
         </div>
         
         <?php include __DIR__ . '/profileModal.php' ?>
