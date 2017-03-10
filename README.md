@@ -18,6 +18,10 @@ composer install
 
 - Create the database and import the schema and the users
 
+```bash
+config/data/schema.sql
+config/data/users.sql
+```
 
 ## Usage
 
