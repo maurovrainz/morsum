@@ -87,6 +87,7 @@ class Request
     }
     
     /**
+     * Return true if the request is an ajax request
      * 
      * @return boolean
      */

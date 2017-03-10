@@ -36,6 +36,9 @@ class Application extends Container implements RuteableInterface
         $this->resolver = new Resolver($this);
     }
     
+    /*
+     * Process the Request and send a Response
+     */
     public function run()
     {
         $request = RequestFactory::create();
@@ -49,6 +52,9 @@ class Application extends Container implements RuteableInterface
         exit();
     }
     
+    /**
+     * Setup the Mysql provider
+     */
     protected function setUpMysql()
     {
         if(array_key_exists('mysql', $this['config'])) {

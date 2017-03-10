@@ -43,6 +43,7 @@ class MySql
     }
     
     /**
+     * Creates the connection
      * 
      * @return \PDO
      */
@@ -52,6 +53,7 @@ class MySql
     }
     
     /**
+     * Returns the connection
      * 
      * @return \PDO
      */
@@ -64,6 +66,12 @@ class MySql
         return $this->connection;
     }
     
+    /**
+     * Returns a Model instance
+     * 
+     * @param string $table
+     * @return Model
+     */
     public function getModel($table)
     {
         if (!isset($this->container['models.' . $table])) {

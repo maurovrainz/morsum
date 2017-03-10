@@ -26,6 +26,7 @@ class Model
     }
     
     /**
+     * Find one row by id
      * 
      * @param mixed $id
      * @param string $idField
@@ -50,6 +51,7 @@ class Model
     }
     
     /**
+     * Find onw row by filters
      * 
      * @param array $parameters
      * @return array
@@ -74,6 +76,7 @@ class Model
     }
     
     /**
+     * Find many rows by parameters
      * 
      * @param array $parameters
      * @return array
@@ -97,6 +100,12 @@ class Model
         }
     }
     
+    /**
+     * Find all the rows
+     * 
+     * @return type
+     * @throws MySqlException
+     */
     public function findAll()
     {
         $query = 'SELECT * FROM `' . $this->table . '` t';
@@ -136,6 +145,7 @@ class Model
     }
     
     /**
+     * Inserts a new row
      * 
      * @param array $values
      * @return boolean
@@ -167,6 +177,7 @@ class Model
     }
     
     /**
+     * Updates one or many rows
      * 
      * @param array $values
      * @return boolean

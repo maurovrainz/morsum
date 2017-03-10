@@ -6,6 +6,7 @@ use Morsum\Http\Request;
 
 /**
  * RequestFactory class
+ * Creates instances of Request class
  *
  * @author mauro
  */
