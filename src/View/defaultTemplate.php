@@ -7,10 +7,10 @@
     <body>
         <div class="container">
             <h1>Hello!</h1>
-            
+            <i>Welcome to the framework default page</i>
             <hr>
             
-            <h2>Users:</h2>
+            <h4>Click on the users to get more info!</h4>
             <ul>
                 <?php foreach($users as $user): ?>
                     <li>
