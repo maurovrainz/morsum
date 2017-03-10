@@ -4,5 +4,8 @@
             "App\\": "src/",
             "Morsum\\": "framework/src/"
         }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "~6.0"
     }
 }
