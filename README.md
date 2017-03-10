@@ -24,7 +24,7 @@ config/data/users.sql
 ```bash
 php -S localhost:8000 -t web/
 ```
-- Request the follow url using your browser or a REST cliet.
+- Request the follow url using your browser
 
 http://localhost:8080
 
