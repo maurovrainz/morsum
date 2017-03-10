@@ -2,12 +2,6 @@
 
 ## Installation
 
-- Move to the API directory
-
-```bash
-cd /path/to/Aivo
-```
-
 - Run composer install
 
 ```bash
@@ -18,6 +12,10 @@ composer install
 
 - Create the database and import the schema and the users
 
+```bash
+config/data/schema.sql
+config/data/users.sql
+```
 
 ## Usage
 
@@ -26,9 +24,11 @@ composer install
 ```bash
 php -S localhost:8000 -t web/
 ```
-- Request the follow url using your browser or a REST cliet.
+- Request the follow url using your browser
 
+```
 http://localhost:8080
+```
 
 ## Documentation
 
